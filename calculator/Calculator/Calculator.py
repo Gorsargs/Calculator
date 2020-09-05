@@ -7,7 +7,7 @@ def spliter(text1):
                     if i == " ":
                         continue
                     else:
-                        text += i
+                        text+= i
                 num = "-+*/^√"
                 number = "0123456789"
                 parentheses = "()"
@@ -18,8 +18,6 @@ def spliter(text1):
                     elif i!= len(text)-1 and (text[i] == ")" and text[i+1] == "("):
                         tmp += (f"{text[i]} *")
                     elif text[i] == ")" or text[i] == "(":
-                        tmp += (f" {text[i]} ")
-                    elif text[i-1] == "(" and text[i+1] == ")":
                         tmp += (f" {text[i]} ")
                     elif text[i] == "√":
                         if i!= 0 and text[i-1] == ")":
@@ -49,7 +47,7 @@ def spliter(text1):
                             elif text[i+1] == "^":
                                 tmp += f" {text[i]} "
                         elif i == 0:
-                            tmp += (f" 0  {text[i]} ")
+                            tmp += (f"0  {text[i]} ")
                         elif i == len(text)-1:
                             tmp += f" {text[i]}"
 
@@ -73,7 +71,7 @@ def spliter(text1):
                             tmp += (f"{text[i]}")
                     elif not(text[i] in num):
                         if i != len(text)-1 and (text[i+1] in parentheses or text[i-1] in parentheses):
-                            if i!= 0 and (text[i+1] == "(" and text[i-1] == ")"):
+                            if text[i+1] == "(" and text[i-1] == ")":
                                 if i != 0:
                                     tmp += f" * {text[i]} * "
                                 else:
@@ -84,17 +82,16 @@ def spliter(text1):
                                 tmp += f"{text[i]}"
                             elif text[i+1] == "(":
                                 tmp += f"{text[i]} *"
-                            elif text[i-1] == ")" :
-                                tmp += f" * {text[i]} "
+                            elif text[i-1] == ")":
+                                tmp += f"* {text[i]}"
                         elif i!= len(text)-1 and text[i+1] == "√":
-                            tmp += f" {text[i]} *"
-                        elif  i == len(text)-1 and text[i-1] == ")":
-                            tmp += f" * {text[i]} "
+                            tmp += f"{text[i]} *"
+                        elif i == len(text)-1 and text[i-1] == ")":
+                            tmp += f"* {text[i]}"
                         else:
                             tmp += f"{text[i]}"
 
                 my_list = tmp.split()
-
                 for i in range(len(my_list)):
                     try:
                         #transforming all possible str(numbers) to float
@@ -102,7 +99,6 @@ def spliter(text1):
                     except:
                         pass
             return my_list
-
         except:
             print("please enter the str object")
 
@@ -161,9 +157,8 @@ def square(text):
     return text
 
 def root(text,i):
-    key = text[i+1] ** 0.5
-    text.remove(text[i+1])
-    text[i] = key
+    text[i+1] = text[i+1] ** 0.5
+    text.remove(text[i])
     return text
 
 def calculator_in(text):

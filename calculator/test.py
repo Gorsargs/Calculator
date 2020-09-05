@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\Gor\Desktop\calculator\calculator.ui'
+# Form implementation generated from reading ui file 'C:\Users\Gor\Desktop\my Python\Calculator_git\calculator_re\calculator.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.0
 #
@@ -532,7 +532,7 @@ class Ui_Dialog(object):
 "}")
         self.pushButton_deleteall.setObjectName("pushButton_deleteall")
         self.pushButton_imsad = QtWidgets.QPushButton(Dialog)
-        self.pushButton_imsad.setGeometry(QtCore.QRect(420, 400, 71, 81))
+        self.pushButton_imsad.setGeometry(QtCore.QRect(460, 400, 31, 81))
         self.pushButton_imsad.setStyleSheet("QPushButton {\n"
 "    color: #FFFFFF;\n"
 "    font: 21pt \"Times Unicode\";\n"
@@ -553,6 +553,28 @@ class Ui_Dialog(object):
 "\n"
 "}")
         self.pushButton_imsad.setObjectName("pushButton_imsad")
+        self.pushButton_dot = QtWidgets.QPushButton(Dialog)
+        self.pushButton_dot.setGeometry(QtCore.QRect(420, 400, 31, 81))
+        self.pushButton_dot.setStyleSheet("QPushButton {\n"
+"    color: #FFFFFF;\n"
+"    font: 21pt \"Times Unicode\";\n"
+"    background-color: gray;\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"    color: #FFFFFF;\n"
+"    font: 21pt \"Times Unicode\";\n"
+"    background-color: #535052;\n"
+"\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    color: #C7C0C5;\n"
+"    font: 21pt \"Times Unicode\";\n"
+"    background-color: #gray;\n"
+"\n"
+"}")
+        self.pushButton_dot.setObjectName("pushButton_dot")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -583,6 +605,7 @@ class Ui_Dialog(object):
         self.pushButton_percent.setText(_translate("Dialog", "%"))
         self.pushButton_deleteall.setText(_translate("Dialog", "CE"))
         self.pushButton_imsad.setText(_translate("Dialog", ":("))
+        self.pushButton_dot.setText(_translate("Dialog", "."))
 
 
 if __name__ == "__main__":

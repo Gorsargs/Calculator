@@ -6,7 +6,6 @@ from time import sleep
 import threading
 from playsound import playsound
 
-
 app = QtWidgets.QApplication(sys.argv)
 Dialog = QtWidgets.QDialog()
 
@@ -14,10 +13,14 @@ ui = Ui_Dialog()
 ui.setupUi(Dialog)
 
 text = ""
+endline = False
+parcount = 0
+dotcount = True
 
 
 
 Dialog.show()
+
 
 def button_press_0():
     global text
@@ -27,6 +30,7 @@ def button_press_0():
 def button_press():
     global text
     text += ui.pushButton.text()
+    number = True
     ui.lineEdit.setText(text)
 
 def button_press_2():
@@ -71,83 +75,146 @@ def button_press_9():
 
 def button_press_plus():
     global text
+    global dotcount
+    dotcount = True
     text += ui.pushButton_plus.text()
     ui.lineEdit.setText(text)
 
 def button_press_minus():
     global text
+    global dotcount
+    dotcount = True
     text += ui.pushButton_minus.text()
     ui.lineEdit.setText(text)
 
+
 def button_press_multiply():
     global text
+    global dotcount
+    dotcount = True
     text += ui.pushButton_multiply.text()
     ui.lineEdit.setText(text)
 
 def button_press_increase():
+    global parcount
     global text
+    global dotcount
+    dotcount = True
     text += ui.pushButton_increase.text()
+    text += ui.pushButton_parent1.text()
+    parcount += 1
     ui.lineEdit.setText(text)
 
 def button_press_root():
+    global parcount
     global text
+    global dotcount
+    dotcount = True
     text += ui.pushButton_root.text()
+    text += ui.pushButton_parent1.text()
+    parcount += 1
     ui.lineEdit.setText(text)
 
 def button_press_devide():
     global text
+    global dotcount
+    dotcount = True
     text += ui.pushButton_devide.text()
     ui.lineEdit.setText(text)
 
 def button_press_parent1():
+    global parcount
     global text
+    global dotcount
+    dotcount = True
     text += ui.pushButton_parent1.text()
+    parcount += 1
     ui.lineEdit.setText(text)
 
 def button_press_parent2():
-    global text
-    text += ui.pushButton_parent2.text()
-    ui.lineEdit.setText(text)
+    global parcount
+    global dotcount
+    if parcount > 0:
+        global text
+        text += ui.pushButton_parent2.text()
+        parcount -= 1
+        dotcount = True
+        ui.lineEdit.setText(text)
 
 def button_press_equal():
     global text
-    text = Calculator.calculator(text)
+    if text.count("(") > text.count(")"):
+        text += (text.count("(") - text.count(")")) * ")"
+    ui.lineEdit.setText(text)
+    text1 = Calculator.calculator(text)
     if type(text) == str:
-        ui.lineEdit_2.setText(text)
+        ui.lineEdit_2.setText(text1)
     else:
         text = ""
-        ui.lineEdit_2.setText(text)
+        ui.lineEdit_2.setText(text1)
 
 def button_press_delete():
     global text
-    text = text[:-1:]
+    global parcount
+    global dotcount
+    try:
+        if text[-1] == ")":
+            parcount += 1
+        elif text[-1] == ".":
+            dotcount = True
+        elif text[-1] == "(":
+            parcount -=1
+    except:
+        pass
+    if len(text)>0:
+        text = text[:-1:]
+    else:
+        print("¯¯\_( ͡ .,,. ͡ )_/¯¯")
     ui.lineEdit.setText(text)
 
 def button_press_percent():
     global text
+    global dotcount
+    dotcount = True
     text += ui.pushButton_percent.text()
     ui.lineEdit.setText(text)
 
 def button_press_deleteall():
     global text
+    global dotcount
     text = ""
     ui.lineEdit.setText(text)
     ui.lineEdit_2.setText(text)
+    dotcount = True
 
+def button_press_dot():
+    global text
+    global dotcount
+    if len(text)>0:
+        if text[-1] in "0123456789" and dotcount:
+            text += ui.pushButton_dot.text()
+            ui.lineEdit.setText(text)
+            dotcount = False
+
+
+
+
+    else:
+        print("not enough numbers")
 
 def button_press_imsad():
     global text
     text = ""
     for i in range(5):
-        text += "♥"
+        text += ":O "
         sleep(1)
         ui.lineEdit.setText(text)
     sleep(1)
-    text += " you are beautiful"
+    text += " virus activated"
     ui.lineEdit.setText(text)
     sleep(1)
     text1 = ""
-    for i in  "thank you for checking my work ♥":
+    for i in  "thank you for downloading my program :O ":
         text1 += i
         sleep(0.1)
         ui.lineEdit_2.setText(text1)
@@ -204,5 +271,5 @@ ui.pushButton_delete.clicked.connect(button_press_delete)
 ui.pushButton_imsad.clicked.connect(hearts_threaded)
 ui.pushButton_deleteall.clicked.connect(button_press_deleteall)
 ui.pushButton_percent.clicked.connect(button_press_percent)
-
+ui.pushButton_dot.clicked.connect(button_press_dot)
 sys.exit(app.exec_())
